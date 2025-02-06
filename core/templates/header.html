@@ -1777,8 +1777,8 @@
         var a = document.getElementById('   -div');
         var c = document.getElementById('form2');
         var e = document.getElementById("nav_bar");
-        var f = document.getElementById("signinbuttons-container");
-        
+        var f = document.getElementById("init_popup");
+
         function form_state() {
             a.classList.toggle('display_block');
             b.classList.toggle('display_block');
@@ -1935,8 +1935,8 @@
         }
 
     </script>
+    {% if not request.user.is_authenticated %}
     <script>
-        /*
         function setCookie(name, value, minutes) {
             let expires = "";
             if (minutes) {
@@ -1946,41 +1946,33 @@
             }
             document.cookie = name + "=" + (value || "") + expires + "; path=/";
         }
-    
+
         function getCookie(name) {
             const nameEQ = name + "=";
             const ca = document.cookie.split(';');
-            for(let i = 0; i < ca.length; i++) {
+            for (let i = 0; i < ca.length; i++) {
                 let c = ca[i];
                 while (c.charAt(0) == ' ') c = c.substring(1, c.length);
                 if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
             }
             return null;
         }
-    
-        {% if not request.user.is_authenticated %}
+        
         if (!getCookie('isOpenForm')) {
-            setCookie('isOpenForm', 'true', 1);
             
+
             setTimeout(() => {
-                c.classList.toggle('display_block');
+                f.style.display = "flex";
                 b.classList.toggle('display_block');
-            }, 5000);
+            }, 1000);
         }
+        Button.addEventListener("click", function () {
+            setCookie("isOpenForm", "false", 60 * 24); // Save cookie for 1 day
+            f.style.display = "none";
+            b.classList.remove('display_block');
+        });
+
+        </script>
         {% endif %}
-        */
-        
-       {% if not request.user.is_authenticated %}
-    
-        setTimeout(() => {
-            // Access the sign-in button by its ID
-            f.style.display = "flex";
-            b.classList.toggle('display_block');
-        }, 000);
-    
-        
-        {% endif %}
-            
+
     </script>
-    </script>
-    
